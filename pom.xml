@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -25,7 +25,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency> 
+		</dependency>
 
 
 
@@ -50,7 +50,18 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.7.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>4.3.1</version>
+			<scope>test</scope>
+		</dependency>
 
 
 	</dependencies>
@@ -58,14 +69,29 @@
 	<!-- Deploy to Nexus -->
 	<distributionManagement>
 		<repository>
-			<id>deploymentRepo</id>
-			<name>Nexus Repository</name>
+			<id>nexus-releases</id> <!-- Doit correspondre à l'ID dans settings.xml -->
+			<name>Nexus Releases Repository</name>
 			<url>http://localhost:8081/repository/maven-releases/</url>
 		</repository>
+		<snapshotRepository>
+			<id>nexus-snapshots</id> <!-- Doit correspondre à un autre ID dans settings.xml si vous utilisez Snapshots -->
+			<name>Nexus Snapshots Repository</name>
+			<url>http://localhost:8081/repository/maven-snapshots/</url>
+		</snapshotRepository>
 	</distributionManagement>
-
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M7</version> <!-- Assure-toi d'utiliser une version récente -->
+				<configuration>
+					<includes>
+						<include>**/*Test.java</include>
+					</includes>
+				</configuration>
+			</plugin>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

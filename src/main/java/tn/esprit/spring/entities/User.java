@@ -1,6 +1,10 @@
 package tn.esprit.spring.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,6 +19,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@Getter
+@Setter
+
 @Table(name = "T_USER")
 public class User implements Serializable {
 
